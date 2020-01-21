@@ -32,18 +32,16 @@ class SortVisualizer {
 	}
 
 	run() {
-		let iterator = this.sorter.sort()
-		let done = false
-		let next
+		var iterator = this.sorter.sort()
+		this.timerId = setInterval(() => this._runLoop(iterator), 50)
+	}
 
-		while(!done) {
-			next = iterator.next()
-			done = next.done
-			this.graphics.render(this.generateColoredArray(next.val))
-			console.log(this.arr)
-			pause(100)
+	_runLoop(iterator) {
+		let next = iterator.next()
+		if (next.done) {
+			clearInterval(this.timerId)
 		}
-
+		this.graphics.render(this.generateColoredArray(next.val))
 	}
 
 	generateColoredArray(colored) {
@@ -57,9 +55,6 @@ class SortVisualizer {
 
 		return coloredArray
 	}
-
-	step() {
-
-	}
-
 }
+
+
