@@ -13,9 +13,8 @@ const colors = {
 	selected2: "#C49991"
 }
 
-function pause(milliseconds) {
-	var dt = new Date();
-	while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
+function randArray(len) {
+	return Array.from({length: len}).map(() => Math.floor(Math.random() * len))
 }
 
 /** Main class for sorting visualizer */
@@ -53,9 +52,16 @@ class SortVisualizer {
 			return {val: val, color: colors['default']}
 		})
 
-		for (let type in colored)
-			for (let i = colored[type].first; i < colored[type].last; ++i)
-				coloredArray[i].color = colors[type]
+		for (let type in colored) {
+			if (type == 'sorted')
+				for (let i = colored[type].first; i < colored[type].last; ++i)
+					coloredArray[i].color = colors[type]
+			else if (type == 'selected')
+				colored[type].map(i => {
+					try { coloredArray[i].color = colors[type] }
+					catch (e) { console.log(i)}
+				})
+		}
 		return coloredArray
 	}
 }

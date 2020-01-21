@@ -1,6 +1,43 @@
+function quickSort(arr, i, k) {
+	if (i >= k)
+		return
+
+	let j = partition(arr, i, k)
+
+	quickSort(arr, i, j)
+	quickSort(arr, j+1, k)
+}
+
+function partition(arr, i, k) {
+	let l = i
+	let h = k
+	let pivot = arr[Math.floor(i + (k - i) / 2)]
+	let tmp
+	let done = false
+
+	while (!done) {
+		console.log(l, h)
+		while (arr[l] < pivot)
+			++l
+		while (pivot < arr[h])
+			--h
+
+		if (l >= h)
+			done = true
+		else {
+			tmp = arr[l]
+			arr[l] = arr[h]
+			arr[h] = tmp
+			++l
+			--h
+		}
+	}
+
+	return h
+}
+
 class QuickSorter extends Sorter {
 	*sort() {
-		console.log('hi')
 		if (this.i >= this.k)
 			return
 
@@ -24,12 +61,13 @@ class QuickSorter extends Sorter {
 
 		while (!done) {
 			while (this.arr[l] < pivot) {
-				yield {selected: [l]}
+				yield {selected: [l, h]}
 				++l
 			}
 
 			while (pivot < this.arr[h]) {
-				yield {selected: [h]}
+				yield {selected: [l, h]}
+				--h
 			}
 
 			if (l >= h)

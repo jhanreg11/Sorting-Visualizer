@@ -4,7 +4,7 @@ class MergeSorter extends Sorter{
 		if (this.i < this.k) {
 			this.j = Math.floor((this.i + this.k) / 2)
 			yield {
-				selected: {first: this.j, last: this.j + 1},
+				selected: [this.j],
 			}
 
 			this.pushState()
@@ -22,7 +22,7 @@ class MergeSorter extends Sorter{
 		}
 
 		yield {
-			selected: {first: 0, last: 0}
+			selected: [this.k]
 		}
 	}
 
@@ -33,31 +33,28 @@ class MergeSorter extends Sorter{
 		let merged = new Array(this.k - this.i + 1)
 
 		while (leftIdx <= this.j && rightIdx <= this.k) {
+			yield { selected: [leftIdx, rightIdx] }
+
 			if (this.arr[leftIdx] <= this.arr[rightIdx])
 				merged[mergeIdx] = this.arr[leftIdx++]
 			else
 				merged[mergeIdx] = this.arr[rightIdx++]
 			mergeIdx++
-
-			// yield {
-			// 	selected: {first: leftIdx, last: leftIdx + 1},
-			// 	selected2: {first: rightIdx, last: rightIdx + 1}
-			// }
 		}
 
 		while (leftIdx <= this.j) {
+			yield { selected: [leftIdx] }
 			merged[mergeIdx++] = this.arr[leftIdx++]
-			// yield { selected: {first: leftIdx, last: leftIdx + 1} }
 		}
 
 		while (rightIdx <= this.k) {
+			yield { selected: [rightIdx] }
 			merged[mergeIdx++] = this.arr[rightIdx++]
-			// yield { selected: {first: rightIdx, last: rightIdx + 1} }
 		}
 
 		for (let mergeIdx = 0; mergeIdx < merged.length; ++mergeIdx) {
 			this.arr[this.i + mergeIdx] = merged[mergeIdx]
-			yield { selected: {first: this.i + mergeIdx, last: this.i + mergeIdx + 1} }
+			yield { selected: [this.i + mergeIdx]}
 		}
 
 	}
