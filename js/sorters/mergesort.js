@@ -1,20 +1,10 @@
 class MergeSorter extends Sorter{
-	constructor(arr) {
-		super(arr)
-		this.i = 0
-		this.j = 0
-		this.k = arr.length - 1
-		this.stack = new Array() // "stack" to store i j k history for recursive calls
-		this.sorted = {first: 0, last: 0}
-	}
-
 	*sort() {
 
 		if (this.i < this.k) {
 			this.j = Math.floor((this.i + this.k) / 2)
 			yield {
 				selected: {first: this.j, last: this.j + 1},
-				sorted: this.sorted
 			}
 
 			this.pushState()
@@ -28,18 +18,15 @@ class MergeSorter extends Sorter{
 			yield * this.sort()
 
 			this.popState()
-			this.merge()
+			yield * this.merge()
 		}
-
-		this.sorted = {first: this.i, last: this.k}
 
 		yield {
-			sorted: this.sorted
+			selected: {first: 0, last: 0}
 		}
-
 	}
 
-	merge() {
+	*merge() {
 		let mergeIdx = 0
 		let leftIdx = this.i
 		let rightIdx = this.j + 1
@@ -51,34 +38,29 @@ class MergeSorter extends Sorter{
 			else
 				merged[mergeIdx] = this.arr[rightIdx++]
 			mergeIdx++
+
+			// yield {
+			// 	selected: {first: leftIdx, last: leftIdx + 1},
+			// 	selected2: {first: rightIdx, last: rightIdx + 1}
+			// }
 		}
 
-		while (leftIdx <= this.j)
+		while (leftIdx <= this.j) {
 			merged[mergeIdx++] = this.arr[leftIdx++]
+			// yield { selected: {first: leftIdx, last: leftIdx + 1} }
+		}
 
-		while (rightIdx <= this.k)
+		while (rightIdx <= this.k) {
 			merged[mergeIdx++] = this.arr[rightIdx++]
+			// yield { selected: {first: rightIdx, last: rightIdx + 1} }
+		}
 
-		for (let mergeIdx = 0; mergeIdx < merged.length; ++mergeIdx)
+		for (let mergeIdx = 0; mergeIdx < merged.length; ++mergeIdx) {
 			this.arr[this.i + mergeIdx] = merged[mergeIdx]
+			yield { selected: {first: this.i + mergeIdx, last: this.i + mergeIdx + 1} }
+		}
 
 	}
 
-	pushState() {
-		this.stack.push(this.i)
-		this.stack.push(this.j)
-		this.stack.push(this.k)
-	}
 
-	popState() {
-		this.k = this.stack.pop()
-		this.j = this.stack.pop()
-		this.i = this.stack.pop()
-	}
-
-	peekState() {
-		this.k = this.stack[this.stack.length - 1]
-		this.j = this.stack[this.stack.length - 2]
-		this.i = this.stack[this.stack.length - 3]
-	}
 }
