@@ -9,7 +9,7 @@ function fixDpi() {
 }
 
 /** Class for rendering sorting bars */
-class Graphics {
+class CanvasGraphics {
 	/**
 	 * Create a graphic for sorting.
 	 * @param {String} canvasId - id (including '#') for canvas element.
