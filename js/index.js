@@ -1,7 +1,7 @@
 
 let sortVisualizer
 $(document).ready(function() {
-	sortVisualizer = new SortVisualizer('#container', 100, 'radix')
+	sortVisualizer = new SortVisualizer('#container', 100, 'selection')
 	sortVisualizer.run()
 })
 

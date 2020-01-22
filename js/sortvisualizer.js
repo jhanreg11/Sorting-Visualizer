@@ -5,7 +5,9 @@ const SortingClasses = {
 	merge: MergeSorter,
 	quick: QuickSorter,
 	heap: HeapSorter,
-	radix: RadixSorter
+	radix: RadixSorter,
+	bubble: BubbleSorter,
+	selection: SelectionSorter
 }
 
 const colors = {
@@ -35,14 +37,14 @@ class SortVisualizer {
 
 	run() {
 		let iterator = this.sorter.sort()
-		this.timerId = setInterval(() => this._runLoop(iterator), 50)
+		this.timerId = setInterval(() => this._runLoop(iterator), 5)
 	}
 
 	_runLoop(iterator) {
 		let next = iterator.next()
 		if (next.done) {
 			clearInterval(this.timerId)
-			this.graphics.render(this.generateColoredArray({ 'sorted': { first: 0, last: this.arr.length } }))
+			this.graphics.render(this.generateColoredArray({ 'sorted': [0, this.arr.length] }))
 			return
 		}
 		this.graphics.render(this.generateColoredArray(next.value))
@@ -55,7 +57,7 @@ class SortVisualizer {
 
 		for (let type in colored) {
 			if (type == 'sorted')
-				for (let i = colored[type].first; i < colored[type].last; ++i)
+				for (let i = colored[type][0]; i < colored[type][1]; ++i)
 					coloredArray[i].color = colors[type]
 			else if (type == 'selected')
 				colored[type].map(i => {
