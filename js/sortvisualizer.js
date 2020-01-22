@@ -4,7 +4,8 @@ const defaultLength = 100
 const SortingClasses = {
 	merge: MergeSorter,
 	quick: QuickSorter,
-	heap: HeapSorter
+	heap: HeapSorter,
+	radix: RadixSorter
 }
 
 const colors = {
