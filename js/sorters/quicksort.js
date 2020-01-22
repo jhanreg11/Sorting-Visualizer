@@ -75,9 +75,7 @@ class QuickSorter extends Sorter {
 			else {
 				yield {selected: [l, h]}
 
-				tmp = this.arr[l]
-				this.arr[l] = this.arr[h]
-				this.arr[h] = tmp
+				this.swap(l, h)
 				++l
 				--h
 			}

@@ -29,4 +29,8 @@ class Sorter {
 		this.j = this.stack[this.stack.length - 2]
 		this.i = this.stack[this.stack.length - 3]
 	}
+
+	swap(i, j) {
+		[this.arr[i], this.arr[j]] = [this.arr[j], this.arr[i]]
+	}
 }

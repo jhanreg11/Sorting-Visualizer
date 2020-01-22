@@ -3,14 +3,14 @@ const defaultLength = 100
 
 const SortingClasses = {
 	merge: MergeSorter,
-	quick: QuickSorter
+	quick: QuickSorter,
+	heap: HeapSorter
 }
 
 const colors = {
 	default: "#696D7D",
 	sorted: "#78C091",
 	selected: "#C49991",
-	selected2: "#C49991"
 }
 
 function randArray(len) {
