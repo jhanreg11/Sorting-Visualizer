@@ -33,4 +33,12 @@ class Sorter {
 	swap(i, j) {
 		[this.arr[i], this.arr[j]] = [this.arr[j], this.arr[i]]
 	}
+
+	reset(arr) {
+		this.arr = arr
+		this.stack = new Array() // "stack" to store i j k history for recursive calls
+		this.i = 0
+		this.j = 0
+		this.k = arr.length - 1
+	}
 }

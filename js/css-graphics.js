@@ -1,9 +1,9 @@
 class HTMLGraphics {
 	constructor(containerId, barNum) {
-		let container = $(containerId)
+		this.container = $(containerId)
 
 
-		container.css({
+		this.container.css({
 			"display": "flex",
 			"flex-direction": "row",
 			"justify-content": "space-evenly",
@@ -12,7 +12,7 @@ class HTMLGraphics {
 		})
 
 		for (let i = 0; i < barNum; ++i)
-			container.append('<div class="bar"></div>')
+			this.container.append('<div class="bar"></div>')
 
 		$('.bar').css("width", 80 / barNum + "%")
 	}
@@ -25,5 +25,14 @@ class HTMLGraphics {
 				"height": coloredArray[i].val + "%"
 			})
 		})
+	}
+
+	changeSize(size) {
+		this.container.empty()
+
+		for (let i = 0; i < size; ++i)
+			this.container.append('<div class="bar"></div>')
+
+		$('.bar').css("width", 80 / size + "%")
 	}
 }

@@ -22,7 +22,7 @@ function randArray(len) {
 
 /** Main class for sorting visualizer */
 class SortVisualizer {
-	constructor(canvasId, arrLength, sortingType) {
+	constructor(containerId, arrLength, sortingType) {
 		if (typeof arrLength != 'number')
 			arrLength = defaultLength
 		if (typeof sortingType != 'string')
@@ -30,18 +30,23 @@ class SortVisualizer {
 
 		this.arr = Array.from({length: arrLength}, () => 1 + Math.floor(Math.random() * maxVal))
 		this.sorter = new SortingClasses[sortingType](this.arr)
-		this.graphics = new HTMLGraphics(canvasId, arrLength, maxVal)
+		this.graphics = new HTMLGraphics(containerId, arrLength, maxVal)
+
+		// demo variables
+		this.animationSpeed = 50
+		this.running = false
 
 		this.graphics.render(this.generateColoredArray({}))
 	}
 
 	run() {
-		let iterator = this.sorter.sort()
-		this.timerId = setInterval(() => this._runLoop(iterator), 5)
+		this.running  = true
+		this.iterator = this.sorter.sort()
+		this.timerId = setInterval(() => this._runLoop(), this.animationSpeed)
 	}
 
-	_runLoop(iterator) {
-		let next = iterator.next()
+	_runLoop() {
+		let next = this.iterator.next()
 		if (next.done) {
 			clearInterval(this.timerId)
 			this.graphics.render(this.generateColoredArray({ 'sorted': [0, this.arr.length] }))
@@ -67,6 +72,34 @@ class SortVisualizer {
 		}
 		return coloredArray
 	}
+
+	changeSorter(type) {
+		this.sorter = new SortingClasses[type](this.arr)
+	}
+
+	reset() {
+		this.running = false
+		clearInterval(this.timerId)
+		this.arr = this.arr.map(() => Math.floor(Math.random() * maxVal) + 1)
+		this.sorter.reset(this.arr)
+		console.log(this.generateColoredArray({}))
+		this.graphics.render(this.generateColoredArray({}))
+	}
+
+	changeSpeed(speed) {
+		this.animationSpeed = 100 - speed
+		if (this.running) {
+			clearInterval(this.timerId)
+			this.timerId = setInterval(() => this._runLoop(), this.animationSpeed)
+		}
+	}
+
+	changeArraySize(size) {
+		this.arr = Array.from({length: size}).map(() => 1 + Math.floor(Math.random() * maxVal))
+		this.graphics.changeSize(size)
+		this.reset()
+	}
+
 }
 
 
