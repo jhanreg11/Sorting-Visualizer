@@ -4,9 +4,9 @@ class HeapSorter extends Sorter {
 			yield * this.heapify(this.arr.length, i)
 
 		for (let k = this.arr.length - 1; k >= 0; --k) {
-			yield { selected: [0, k]}
+			yield { selected: [0, k], sorted: [k+1, this.arr.length]}
 			this.swap(0, k)
-			yield { selected: [0, k]}
+			yield { selected: [0, k], sorted: [k, this.arr.length]}
 			yield * this.heapify(k, 0)
 		}
 	}
@@ -24,9 +24,9 @@ class HeapSorter extends Sorter {
 
 		if (largest != i) {
 			this.swap(i, largest)
-			yield { selected: [i, largest]}
+			yield { selected: [i, largest], sorted: [length, this.arr.length]}
 			yield * this.heapify(length, largest)
-			yield { selected: [i, largest]}
+			yield { selected: [i, largest], sorted: [length, this.arr.length]}
 		}
 	}
 }

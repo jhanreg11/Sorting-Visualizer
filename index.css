@@ -84,10 +84,15 @@ a:hover {
 .option {
   margin: 0 1%;
   font-size: 2em;
+  width: 20%;
 }
 
 .option > .input {
   width: 100%;
+}
+
+.licorice-div {
+  background: #210D0F;
 }
 
 /* End option styling */

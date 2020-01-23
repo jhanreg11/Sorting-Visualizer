@@ -3,9 +3,6 @@ class MergeSorter extends Sorter{
 
 		if (this.i < this.k) {
 			this.j = Math.floor((this.i + this.k) / 2)
-			yield {
-				selected: [this.j],
-			}
 
 			this.pushState()
 
@@ -21,9 +18,6 @@ class MergeSorter extends Sorter{
 			yield * this.merge()
 		}
 
-		yield {
-			selected: [this.k]
-		}
 	}
 
 	*merge() {

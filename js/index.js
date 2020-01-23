@@ -14,6 +14,7 @@ $(document).ready(function() {
 	$('#algo-select').change(() => {
 		visualizer.reset()
 		visualizer.changeSorter($('#algo-select').val())
+		visualizer.run()
 	})
 
 	$('#speed-input').change(() => {
@@ -27,6 +28,7 @@ $(document).ready(function() {
 
 	$('#restart').click(() => {
 		visualizer.reset()
+		visualizer.run()
 	})
 
 	$('#pause').click(() => {
@@ -59,8 +61,15 @@ $(document).ready(function() {
 	})
 
 	// polyfill range slider
-	$('#size-input').rangeslider()
-	$('#speed-input').rangeslider()
+	let sliderConfig = {
+		fillClass: 'licorice-div'
+	}
+	$('#size-input').rangeslider({
+
+	})
+	$('#speed-input').rangeslider({
+
+	})
 
 })
 
