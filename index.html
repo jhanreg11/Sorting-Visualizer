@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="index.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.3/rangeslider.min.js" integrity="sha256-vFhEtGnaQ2xB+yjBTSXxssthNcfdbzu+lmLYhCdp2Cc=" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <script src="js/css-graphics.js"></script>
 
@@ -33,29 +35,38 @@
   </div>
 
   <div id="options">
-    <div class="option">
-      <select id="algo-select">
-        <option value="bubble">Bubble Sort</option>
-        <option value="heap">Heap Sort</option>
-        <option value="merge" selected>Merge Sort</option>
-        <option value="quick">Quick Sort</option>
-        <option value="radix">Radix Sort</option>
-        <option value="selection">Selection Sort</option>
-      </select>
+    <div class="option">Select Algorithm:
+        <select id="algo-select" class="input">
+          <option value="bubble">Bubble Sort&nbsp;</option>
+          <option value="heap">Heap Sort&nbsp;</option>
+          <option value="merge" selected>Merge Sort&nbsp;</option>
+          <option value="quick">Quick Sort&nbsp;</option>
+          <option value="radix">Radix Sort&nbsp;</option>
+          <option value="selection">Selection Sort&nbsp;</option>
+        </select>
     </div>
 
-    <div class="range">Array Size:
-      <input id="size-input" type="range" min="10" max="200" value="100">
+    <div class="option">Array Size:
+      <input class="input" id="size-input" type="range" min="10" max="100" value="50" data-rangeslider>
     </div>
 
-    <div class="range">Animation Speed:
-      <input id="speed-input" type="range" min="1" max="100" value="50">
+    <div class="option">Animation Speed:
+      <input class="input" id="speed-input" type="range" min="1" max="100" value="50">
     </div>
-
-    <div id="restart" class="btn">New Array</div>
-    <div id="start" class="btn">Start Sorting</div>
+  </div>
+  <div id="media-control">
+    <div class="material-icons" id="restart">loop</div>
+    <div class="material-icons" id="pause">pause</div>
+    <div class="material-icons" id="start">play_arrow</div>
+    <div class="material-icons" id="fast-forward">fast_forward</div>
+    <div class="material-icons" id="finish">skip_next</div>
   </div>
 
-  <div id="container"></div>
+
+  <div id="visual">
+    <div id="bars-block"></div>
+    <div id="container"></div>
+  </div>
+  </div>
 </body>
 </html>

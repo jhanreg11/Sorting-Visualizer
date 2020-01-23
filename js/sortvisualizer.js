@@ -13,7 +13,7 @@ const SortingClasses = {
 const colors = {
 	default: "#696D7D",
 	sorted: "#78C091",
-	selected: "#C49991",
+	selected: "#F0FFCE",
 }
 
 function randArray(len) {
@@ -50,9 +50,10 @@ class SortVisualizer {
 		if (next.done) {
 			clearInterval(this.timerId)
 			this.graphics.render(this.generateColoredArray({ 'sorted': [0, this.arr.length] }))
-			return
+			return false
 		}
 		this.graphics.render(this.generateColoredArray(next.value))
+		return true
 	}
 
 	generateColoredArray(colored) {
@@ -80,6 +81,7 @@ class SortVisualizer {
 	reset() {
 		this.running = false
 		clearInterval(this.timerId)
+		this.timerId = false
 		this.arr = this.arr.map(() => Math.floor(Math.random() * maxVal) + 1)
 		this.sorter.reset(this.arr)
 		console.log(this.generateColoredArray({}))
@@ -99,6 +101,32 @@ class SortVisualizer {
 		this.graphics.changeSize(size)
 		this.reset()
 	}
+
+	pause() {
+		if (this.running) {
+			this.running = false
+			clearInterval(this.timerId)
+		}
+	}
+
+	resume() {
+		if (!this.running && this.timerId) {
+			this.running = true
+			this.timerId = setInterval(() => this._runLoop(), this.animationSpeed)
+		}
+	}
+
+	fastForward(toEnd) {
+		this.pause()
+		if (!toEnd) {
+			for (let i = 0; i < 20; ++i) this._runLoop()
+			this.resume()
+		}
+		else
+			while (this._runLoop()) {}
+
+	}
+
 
 }
 

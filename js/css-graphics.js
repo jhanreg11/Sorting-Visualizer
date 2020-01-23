@@ -2,7 +2,6 @@ class HTMLGraphics {
 	constructor(containerId, barNum) {
 		this.container = $(containerId)
 
-
 		this.container.css({
 			"display": "flex",
 			"flex-direction": "row",
