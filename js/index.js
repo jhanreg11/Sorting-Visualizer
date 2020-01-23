@@ -57,7 +57,7 @@ $(document).ready(function() {
 
 	// override media control font size
 	$('.material-icons').each(function() {
-		$(this).css('font-size', '3em')
+		$(this).css('font-size', '100px')
 	})
 
 	// polyfill range slider
