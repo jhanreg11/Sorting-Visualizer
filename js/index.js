@@ -1,7 +1,6 @@
 let visualizer
 
 $(document).ready(function() {
-
 	// limit max size for mobile
 	if ($(document).width() <= 1000) {
 		$('#size-input').attr("max", "25")
