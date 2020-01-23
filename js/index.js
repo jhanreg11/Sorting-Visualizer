@@ -22,8 +22,8 @@ $(document).ready(function() {
 	})
 
 	$('#size-input').change(() => {
-		console.log($('#size-input').val())
 		visualizer.changeArraySize(Number($('#size-input').val()))
+		visualizer.run()
 	})
 
 	$('#restart').click(() => {
