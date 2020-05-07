@@ -1,6 +1,13 @@
 ## Sorting Visualizer
-Visualization tool for various sorting algorithms.
+This project is a simple tool for visualizing various sorting algorithms within the browser.dd
 
-** under development **
+To run it locally, just open index.html.
 
-To see current progress open index.html
+## Available sorting algorithms
+
+- merge sort
+- heap sort
+- quick sort
+- radix sort
+- selection sort
+- bubble sort
